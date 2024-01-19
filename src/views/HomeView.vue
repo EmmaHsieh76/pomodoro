@@ -135,7 +135,7 @@ const currentTime = computed(() => {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: rgb(19, 16, 16);
+  color: #fff;
 }
 
 h1 {
