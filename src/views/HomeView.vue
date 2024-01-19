@@ -128,14 +128,14 @@ const currentTime = computed(() => {
 .re {
   position: relative;
   height: 120vh;
-  background: #a1b599;
 }
+
 .size {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: rgb(220, 30, 30);
+  color: rgb(19, 16, 16);
 }
 
 h1 {

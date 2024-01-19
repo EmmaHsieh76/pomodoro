@@ -1,7 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar 
-    color="teal-darken-4"
+    <v-app-bar
     scroll-behavior="fade-image"
     image="../image/random1.jpg"
     >
@@ -19,7 +18,7 @@
         <v-btn prepend-icon="mdi-cog" to="/settings">設定</v-btn>
       </v-container>
     </v-app-bar>
-    <v-main>
+    <v-main class="vmain">
       <!-- Component = 目前該顯示的路由元件 -->
       <router-view v-slot="{ Component }">
         <!--
@@ -39,7 +38,7 @@
     <div class="px-4 py-2 text-center w-100">
       {{ new Date().getFullYear() }} — <strong>Pomodoro 番茄鐘</strong>
     </div>
-  </v-footer>
+    </v-footer>
   </v-app>
 </template>
 
@@ -48,7 +47,7 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: rgb(175, 25, 25);
+  color: rgb(162, 33, 33);
 }
 
 #footer {
@@ -56,5 +55,11 @@
   bottom: 0;
   width: 100%;
   background: rgb(175, 25, 25);
+}
+
+.vmain{
+  width: 100%;
+  height: 100%;
+  background: #156e4b;
 }
 </style>
