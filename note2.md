@@ -68,7 +68,10 @@ https://analytics.google.com/analytics/web/provision/#/provision
 <!-- 安裝 -->
 GOOGLE分析的打包套件
 參考網址:
-https://www.npmjs.com/package/vite-plugin-radar?activeTab=readme#vite-plugin-radar
+https://www.npmjs.com/package/vite-plugin-radar?activeTab=readme#vite-plugin-radar 
+
+<!--google分析工具網址 -->
+https://analytics.google.com/analytics/web/?pli=1#/p420040460/reports/intelligenthome
 
 npm i --save-dev vite-plugin-radar 
 又等於下面這行
@@ -92,3 +95,5 @@ iOS Splash Screen Generator
 
  <!--在不同社群搜尋後在網頁呈現效果 -->
  https://metatags.io/
+
+
