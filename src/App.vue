@@ -1,9 +1,13 @@
 <template>
   <v-app>
-    <v-app-bar color="teal-darken-4">
+    <v-app-bar 
+    color="teal-darken-4"
+    scroll-behavior="fade-image"
+    image="../image/random1.jpg"
+    >
       <v-container class="d-flex align-center">
-        <v-app-bar-title
-          ><RouterLink to="/" class="custom-title text-h4 font-weight-bold"
+        <v-app-bar-title>
+          <RouterLink to="/" class="custom-title text-h4 font-weight-bold"
             ><v-icon class="mr-2">mdi-alarm</v-icon>番茄鐘</RouterLink
           ></v-app-bar-title
         >
@@ -31,11 +35,11 @@
         </keep-alive>
       </router-view>
     </v-main>
-    <v-footer class="d-flex flex-column">
-      <div class="px-4 py-2 text-center w-100">
-        {{ new Date().getFullYear() }} — <strong>Pomodoro 番茄鐘</strong>
-      </div>
-    </v-footer>
+    <v-footer class="d-flex flex-column" id="footer">
+    <div class="px-4 py-2 text-center w-100">
+      {{ new Date().getFullYear() }} — <strong>Pomodoro 番茄鐘</strong>
+    </div>
+  </v-footer>
   </v-app>
 </template>
 
@@ -44,6 +48,13 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: rgb(205, 26, 26);
+  color: rgb(175, 25, 25);
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgb(175, 25, 25);
 }
 </style>

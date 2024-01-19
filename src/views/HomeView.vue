@@ -1,40 +1,51 @@
 <template>
-  <v-container >
-    <v-row >
+  <v-container class="re">
+    <v-row class="size">
       <v-col cols="12">
         <h1 class="text-center">{{ currentText }}</h1>
         <h1 class="text-center">{{ currentTime }}</h1>
       </v-col>
       <v-col cols="12" class="text-center">
         <v-btn
-          variant="text" icon="mdi-play"
-          :disabled="status === STATUS.COUNTING || (currentItem.length === 0 && items.length === 0)"
+          variant="text"
+          icon="mdi-play"
+          :disabled="
+            status === STATUS.COUNTING ||
+            (currentItem.length === 0 && items.length === 0)
+          "
           @click="startTimer"
         ></v-btn>
         <v-btn
-          variant="text" icon="mdi-pause" :disabled="status !== STATUS.COUNTING"
+          variant="text"
+          icon="mdi-pause"
+          :disabled="status !== STATUS.COUNTING"
           @click="pauseTimer"
         ></v-btn>
-        <v-btn variant="text" icon="mdi-skip-next" :disabled="currentItem.length === 0" @click="finishTimer"></v-btn>
+        <v-btn
+          variant="text"
+          icon="mdi-skip-next"
+          :disabled="currentItem.length === 0"
+          @click="finishTimer"
+        ></v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script setup>
-import store from '@/store'
-import { useListStore } from '@/store/list'
-import { useSettingsStore } from '@/store/settings'
-import { storeToRefs } from 'pinia'
-import { ref, computed } from 'vue'
-import { useWebNotification } from '@vueuse/core'
+import store from "@/store";
+import { useListStore } from "@/store/list";
+import { useSettingsStore } from "@/store/settings";
+import { storeToRefs } from "pinia";
+import { ref, computed } from "vue";
+import { useWebNotification } from "@vueuse/core";
 
-const list = useListStore()
-const { currentItem, items, timeleft } = storeToRefs(list)
-const { setCurrentItem, countdown, setFinishedItem } = list
+const list = useListStore();
+const { currentItem, items, timeleft } = storeToRefs(list);
+const { setCurrentItem, countdown, setFinishedItem } = list;
 
-const settings = useSettingsStore()
-const { selectedAlarmFile, notify } = storeToRefs(settings)
+const settings = useSettingsStore();
+const { selectedAlarmFile, notify } = storeToRefs(settings);
 
 // 0 = 停止
 // 1 = 倒數中
@@ -42,71 +53,92 @@ const { selectedAlarmFile, notify } = storeToRefs(settings)
 const STATUS = {
   STOP: 0,
   COUNTING: 1,
-  PAUSE: 2
-}
+  PAUSE: 2,
+};
 
-const status = ref(STATUS.STOP)
+const status = ref(STATUS.STOP);
 
-let timer = 0
+let timer = 0;
 const startTimer = () => {
   if (status.value === STATUS.STOP && items.value.length > 0) {
-    setCurrentItem()
+    setCurrentItem();
   }
 
-  status.value = STATUS.COUNTING
+  status.value = STATUS.COUNTING;
 
   timer = setInterval(() => {
-    countdown()
+    countdown();
     if (timeleft.value === 0) {
-      finishTimer()
+      finishTimer();
     }
-  }, 1000)
-}
+  }, 1000);
+};
 
 const pauseTimer = () => {
-  status.value = STATUS.PAUSE
-  clearInterval(timer)
-}
+  status.value = STATUS.PAUSE;
+  clearInterval(timer);
+};
 
 const finishTimer = () => {
-  clearInterval(timer)
-  status.value = STATUS.STOP
+  clearInterval(timer);
+  status.value = STATUS.STOP;
 
-  const audio = new Audio()
-  audio.src = selectedAlarmFile.value
-  audio.play()
+  const audio = new Audio();
+  audio.src = selectedAlarmFile.value;
+  audio.play();
 
   if (notify.value) {
     const { show, isSupported } = useWebNotification({
-      title: '事項完成',
+      title: "事項完成",
       body: currentItem.value,
-      icon: new URL('@/assets/tomato.png', import.meta.url).href
-    })
+      icon: new URL("@/assets/tomato.png", import.meta.url).href,
+    });
     if (isSupported.value) {
-      show()
+      show();
     }
   }
 
-  setFinishedItem()
+  setFinishedItem();
 
   if (items.value.length > 0) {
-    startTimer()
+    startTimer();
   }
-}
+};
 
 const currentText = computed(() => {
   if (currentItem.value.length > 0) {
-    return currentItem.value
+    return currentItem.value;
   } else if (items.value.length > 0) {
-    return '點擊開始'
+    return "點擊開始";
   } else {
-    return '沒有事項'
+    return "沒有事項";
   }
-})
+});
 
 const currentTime = computed(() => {
-  const m = Math.floor(timeleft.value / 60).toString().padStart(2, '0')
-  const s = (timeleft.value % 60).toString().padStart(2, '0')
-  return m + ':' + s
-})
+  const m = Math.floor(timeleft.value / 60)
+    .toString()
+    .padStart(2, "0");
+  const s = (timeleft.value % 60).toString().padStart(2, "0");
+  return m + ":" + s;
+});
 </script>
+
+<style>
+.re {
+  position: relative;
+  height: 120vh;
+  background: #a1b599;
+}
+.size {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(220, 30, 30);
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+</style>
