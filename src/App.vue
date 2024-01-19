@@ -8,8 +8,7 @@
         <v-app-bar-title>
           <RouterLink to="/" class="custom-title text-h4 font-weight-bold"
             ><v-icon class="mr-2">mdi-alarm</v-icon>番茄鐘</RouterLink
-          ></v-app-bar-title
-        >
+          ></v-app-bar-title>
         <v-btn prepend-icon="mdi-home" to="/"
           >首頁
           <v-tooltip activator="parent" location="bottom">計時器面板</v-tooltip>
