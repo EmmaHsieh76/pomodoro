@@ -1,11 +1,11 @@
 <template>
-  <v-container>
-    <v-row>
+  <v-container >
+    <v-row >
       <v-col cols="12">
-        <h1>{{ currentText }}</h1>
-        <h1>{{ currentTime }}</h1>
+        <h1 class="text-center">{{ currentText }}</h1>
+        <h1 class="text-center">{{ currentTime }}</h1>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="12" class="text-center">
         <v-btn
           variant="text" icon="mdi-play"
           :disabled="status === STATUS.COUNTING || (currentItem.length === 0 && items.length === 0)"

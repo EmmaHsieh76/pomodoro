@@ -1,10 +1,8 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="12">
+      <v-col cols="6">
         <h1 class="text-center">事項</h1>
-      </v-col>
-      <v-col cols="12">
         <v-text-field
           variant="solo-filled"
           label="新增事項"
@@ -75,10 +73,8 @@
           </tbody>
         </v-table>
       </v-col>
-      <v-col cols="12">
+      <v-col cols="6">
         <h1 class="text-center">已完成事項</h1>
-      </v-col>
-      <v-col col="12">
         <v-table>
           <thead>
             <tr>
@@ -109,38 +105,45 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useListStore } from '@/store/list'
-import { storeToRefs } from 'pinia'
+import { ref } from "vue";
+import { useListStore } from "@/store/list";
+import { storeToRefs } from "pinia";
 
-const list = useListStore()
-const { items, finishedItems } = storeToRefs(list)
-const { addItem, editItem, delItem, cancelEditItem, confirmEditItem, delFinishedItem } = list
+const list = useListStore();
+const { items, finishedItems } = storeToRefs(list);
+const {
+  addItem,
+  editItem,
+  delItem,
+  cancelEditItem,
+  confirmEditItem,
+  delFinishedItem,
+} = list;
 
-const newItem = ref('')
-const newItemInput = ref(null)
-const editItemInput = ref([])
+const newItem = ref("");
+const newItemInput = ref(null);
+const editItemInput = ref([]);
 
 const onInputSubmit = async () => {
-  const validate = await newItemInput.value.validate()
-  console.log(validate)
-  if (validate.length > 0) return
-  addItem(newItem.value)
-  newItemInput.value.reset()
-}
+  const validate = await newItemInput.value.validate();
+  console.log(validate);
+  if (validate.length > 0) return;
+  addItem(newItem.value);
+  newItemInput.value.reset();
+};
 
 const onEditInputSubmit = async (id, i) => {
-  const validate = await editItemInput.value[i].validate()
-  if (validate.length > 0) return
-  confirmEditItem(id)
-}
+  const validate = await editItemInput.value[i].validate();
+  if (validate.length > 0) return;
+  confirmEditItem(id);
+};
 
 const rules = {
   required: (value) => {
-    return Boolean(value) || '欄位必填'
+    return Boolean(value) || "欄位必填";
   },
   length: (value) => {
-    return value.length >= 3 || '必須三個字以上'
-  }
-}
+    return value.length >= 3 || "必須三個字以上";
+  },
+};
 </script>
